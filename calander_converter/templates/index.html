@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Date Converter</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Date Converter</h1>
+        <label for="conversionType">Convert From:</label>
+        <select id="conversionType" onchange="toggleInputs()">
+            <option value="gregorianToEthiopian">Gregorian to Ethiopian</option>
+            <option value="ethiopianToGregorian">Ethiopian to Gregorian</option>
+        </select>
+
+        <div id="gregorianToEthiopianInputs">
+            <label for="gregorianDateInput">Gregorian Date:</label>
+            <input type="date" id="gregorianDateInput">
+        </div>
+
+        <div id="ethiopianToGregorianInputs" style="display: none;">
+            <!-- Add this input field for Ethiopian Year -->
+<label for="ethiopianYearInput">Ethiopian Year:</label>
+<input type="number" id="ethiopianYearInput" min="1892" max="2092">
+            <label for="ethiopianMonthInput">Ethiopian Month:</label>
+            <select id="ethiopianMonthInput">
+                <option value="1">Meskerem</option>
+                <option value="2">Tikimt</option>
+                <option value="3">Hidar</option>
+                <option value="4">Tahsas</option>
+                <option value="5">Tir</option>
+                <option value="6">Yekatit</option>
+                <option value="7">Megabit</option>
+                <option value="8">Miazia</option>
+                <option value="9">Genbot</option>
+                <option value="10">Sene</option>
+                <option value="11">Hamle</option>
+                <option value="12">Nehase</option>
+                <option value="13">Pagume</option>
+            </select>
+
+            <label for="ethiopianDayInput">Ethiopian Day:</label>
+            <input type="number" id="ethiopianDayInput" min="1" max="30">
+        </div>
+
+        <button type="button" onclick="convertDate()">Convert</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function toggleInputs() {
+            const conversionType = document.getElementById('conversionType').value;
+            const gregorianToEthiopianInputs = document.getElementById('gregorianToEthiopianInputs');
+            const ethiopianToGregorianInputs = document.getElementById('ethiopianToGregorianInputs');
+    
+            if (conversionType === 'gregorianToEthiopian') {
+                gregorianToEthiopianInputs.style.display = 'block';
+                ethiopianToGregorianInputs.style.display = 'none';
+            } else {
+                gregorianToEthiopianInputs.style.display = 'none';
+                ethiopianToGregorianInputs.style.display = 'block';
+            }
+        }
+    
+        function convertDate() {
+            const conversionType = document.getElementById('conversionType').value;
+            let result = '';
+    
+            if (conversionType === 'gregorianToEthiopian') {
+                const gregorianDate = document.getElementById('gregorianDateInput').value;
+                
+                // Send a request to your Flask backend to perform Gregorian to Ethiopian conversion
+                fetch('/convert?conversionType=gregorianToEthiopian&gregorianDate=' + gregorianDate)
+                    .then(response => response.text())
+                    .then(data => {
+                        result = data;
+                        document.getElementById('result').textContent = result;
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                const ethiopianMonth = document.getElementById('ethiopianMonthInput').value;
+                const ethiopianDay = document.getElementById('ethiopianDayInput').value;
+                const ethiopianYear = document.getElementById('ethiopianYearInput').value;
+                
+                // Send a request to your Flask backend to perform Ethiopian to Gregorian conversion
+                fetch('/convert?conversionType=ethiopianToGregorian&ethiopianMonth=' + ethiopianMonth + '&ethiopianDay=' + ethiopianDay + '&ethiopianYear=' + ethiopianYear)
+                    .then(response => response.text())
+                    .then(data => {
+                        result = data;
+                        document.getElementById('result').textContent = result;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>
