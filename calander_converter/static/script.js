@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Populate Ethiopian month options
     const ethiopianMonths = [
-        'Meskerem', 'Tikimt', 'Hidar', 'Tahsas', 'Tir', 'Yekatit',
-        'Megabit', 'Miazia', 'Genbot', 'Sene', 'Hamle', 'Nehase', 'Pagume'
+        'Meskerem (መስከረም)', 'Tikimt (ጥቅምት)', 'Hidar (ኅዳር)', 'Tahsas (ታኅሣሥ)', 
+        'Tir (ጥር)', 'Yekatit (የካቲት)', 'Megabit (መጋቢት)', 'Miazia (ሚያዝያ)', 
+        'Genbot (ግንቦት)', 'Sene (ሰኔ)', 'Hamle (ሃምሌ)', 'Nehase (ነሐሴ)', 'Pagume (ጳጉሜ)'
     ];
+    
     const ethiopianMonthSelect = document.getElementById('ethiopian-month');
     ethiopianMonths.forEach((month, index) => {
         const option = document.createElement('option');
@@ -12,14 +14,28 @@ document.addEventListener('DOMContentLoaded', function() {
         ethiopianMonthSelect.appendChild(option);
     });
 
-    // Populate Ethiopian day options
     const ethiopianDaySelect = document.getElementById('ethiopian-day');
-    for (let i = 1; i <= 30; i++) {
-        const option = document.createElement('option');
-        option.value = i;
-        option.textContent = i;
-        ethiopianDaySelect.appendChild(option);
+    function updateEthiopianDays() {
+        const selectedMonth = ethiopianMonthSelect.value;
+        const maxDays = selectedMonth == 13 ? 6 : 30; // 6 days for Pagume, 30 for others
+
+        // Clear existing options
+        ethiopianDaySelect.innerHTML = '';
+
+        // Add new options
+        for (let i = 1; i <= maxDays; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            ethiopianDaySelect.appendChild(option);
+        }
     }
+
+    // Initial population of Ethiopian days
+    updateEthiopianDays();
+
+    // Add event listener to Ethiopian month select
+    ethiopianMonthSelect.addEventListener('change', updateEthiopianDays);
 
     // Convert to Gregorian
     document.getElementById('convert-to-gregorian').addEventListener('click', function() {
@@ -30,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/convert?conversionType=ethiopianToGregorian&ethiopianYear=${ethiopianYear}&ethiopianMonth=${ethiopianMonth}&ethiopianDay=${ethiopianDay}`)
             .then(response => response.text())
             .then(data => {
-                document.getElementById('gregorian-result').textContent = data;
+                document.getElementById('gregorian-result').setAttribute('data-result', data);
             })
             .catch(error => console.error('Error:', error));
     });
@@ -42,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`/convert?conversionType=gregorianToEthiopian&gregorianDate=${gregorianDate}`)
             .then(response => response.text())
             .then(data => {
-                document.getElementById('ethiopian-result').textContent = data;
+                document.getElementById('ethiopian-result').setAttribute('data-result', data);
             })
             .catch(error => console.error('Error:', error));
     });
