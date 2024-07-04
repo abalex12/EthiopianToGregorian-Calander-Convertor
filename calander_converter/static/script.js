@@ -43,6 +43,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const ethiopianMonth = document.getElementById('ethiopian-month').value;
         const ethiopianDay = document.getElementById('ethiopian-day').value;
 
+        // Validate input
+        if (!ethiopianYear || !ethiopianMonth || !ethiopianDay) {
+            alert('Please fill all inputs.');
+            return;
+        }
+
         fetch(`/convert?conversionType=ethiopianToGregorian&ethiopianYear=${ethiopianYear}&ethiopianMonth=${ethiopianMonth}&ethiopianDay=${ethiopianDay}`)
             .then(response => response.text())
             .then(data => {
@@ -54,6 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Convert to Ethiopian
     document.getElementById('convert-to-ethiopian').addEventListener('click', function() {
         const gregorianDate = document.getElementById('gregorian-date').value;
+
+        // Validate input
+        if (!gregorianDate) {
+            alert('Please fill all inputs.');
+            return;
+        }
 
         fetch(`/convert?conversionType=gregorianToEthiopian&gregorianDate=${gregorianDate}`)
             .then(response => response.text())
