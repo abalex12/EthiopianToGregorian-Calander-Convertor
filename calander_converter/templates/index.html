@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ethiopian-Gregorian Calendar Converter</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="static/script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -26,6 +27,12 @@
                     <input type="number" id="ethiopian-year" name="ethiopian-year" placeholder="Year">
                 </div>
                 <button id="convert-to-gregorian">Convert to Gregorian</button>
+                <section class="results">
+                    <div class="gregorian-result">
+                        <label for="gregorian-result">Converted Gregorian Date:(yyyy/mm/dd):</label>
+                        <div id="gregorian-result" class="result-container" aria-live="polite"></div>
+                    </div>
+                </section>
             </div>
             
             <div class="gregorian-date">
@@ -34,23 +41,17 @@
                     <input type="date" id="gregorian-date" name="gregorian-date">
                 </div>
                 <button id="convert-to-ethiopian">Convert to Ethiopian</button>
-            </div>
-        </section>
-        
-        <section class="results">
-            <div class="ethiopian-result">
-                <label for="ethiopian-result">Converted Ethiopian Date</label>
-                <input type="text" id="ethiopian-result" readonly>
-            </div>
-            
-            <div class="gregorian-result">
-                <label for="gregorian-result">Converted Gregorian Date</label>
-                <input type="text" id="gregorian-result" readonly>
+                <section class="results">
+                    <div class="ethiopian-result">
+                        <label for="ethiopian-result">Converted Ethiopian Date (yyyy/mm/dd):</label>
+                        <div id="ethiopian-result" class="result-container" aria-live="polite"></div>
+                    </div>
+                </section>
             </div>
         </section>
         
         <footer>
-            <p>Powered by [Your Name or Company]</p>
+            <p>Powered by Abraham</p>
             <nav>
                 <a href="#">About</a>
                 <a href="#">Contact</a>
@@ -58,57 +59,5 @@
             </nav>
         </footer>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Populate Ethiopian month options
-            const ethiopianMonths = [
-                'Meskerem', 'Tikimt', 'Hidar', 'Tahsas', 'Tir', 'Yekatit',
-                'Megabit', 'Miazia', 'Genbot', 'Sene', 'Hamle', 'Nehase', 'Pagume'
-            ];
-            const ethiopianMonthSelect = document.getElementById('ethiopian-month');
-            ethiopianMonths.forEach((month, index) => {
-                const option = document.createElement('option');
-                option.value = index + 1;
-                option.textContent = month;
-                ethiopianMonthSelect.appendChild(option);
-            });
-
-            // Populate Ethiopian day options
-            const ethiopianDaySelect = document.getElementById('ethiopian-day');
-            for (let i = 1; i <= 30; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i;
-                ethiopianDaySelect.appendChild(option);
-            }
-
-            // Convert to Gregorian
-            document.getElementById('convert-to-gregorian').addEventListener('click', function() {
-                const ethiopianYear = document.getElementById('ethiopian-year').value;
-                const ethiopianMonth = document.getElementById('ethiopian-month').value;
-                const ethiopianDay = document.getElementById('ethiopian-day').value;
-
-                fetch(`/convert?conversionType=ethiopianToGregorian&ethiopianYear=${ethiopianYear}&ethiopianMonth=${ethiopianMonth}&ethiopianDay=${ethiopianDay}`)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('gregorian-result').value = data;
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-
-            // Convert to Ethiopian
-            document.getElementById('convert-to-ethiopian').addEventListener('click', function() {
-                const gregorianDate = document.getElementById('gregorian-date').value;
-
-                fetch(`/convert?conversionType=gregorianToEthiopian&gregorianDate=${gregorianDate}`)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('ethiopian-result').value = data;
-                    })
-                    .catch(error => console.error('Error:', error));
-            });
-        });
-    </script>
 </body>
 </html>

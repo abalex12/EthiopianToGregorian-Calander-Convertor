@@ -17,7 +17,7 @@ def convert():
         try:
             year, month, day = map(int, gregorian_date.split("-"))
             ethiopian_date = EthiopianDateConverter.to_ethiopian(year, month, day)
-            result = f"(yyyy/mm/dd):{ethiopian_date[0]}/{ethiopian_date[1]}/{ethiopian_date[2]}"
+            result = f"{ethiopian_date[0]}/{ethiopian_date[1]}/{ethiopian_date[2]}"
         except ValueError as e:
             result = str(e)
     elif conversion_type == "ethiopianToGregorian":
@@ -26,7 +26,7 @@ def convert():
         ethiopian_day = int(request.args.get("ethiopianDay"))
         try:
             gregorian_date = EthiopianDateConverter.to_gregorian(ethiopian_year, ethiopian_month, ethiopian_day)
-            result = f"(yyyy/mm/dd):{gregorian_date.year}/{gregorian_date.month}/{gregorian_date.day}"
+            result = f"{gregorian_date.year}/{gregorian_date.month}/{gregorian_date.day}"
         except ValueError as e:
             result = str(e)
 
