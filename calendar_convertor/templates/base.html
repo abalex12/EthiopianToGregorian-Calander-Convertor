@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Ethiopian Calendar Converter | Convert Ethiopian and Gregorian Dates{% endblock %}</title>
+    
+        <!-- Meta Description -->
+        <meta name="description" content="Easily convert dates between Ethiopian and Gregorian calendars. Our Ethiopian Calendar Converter provides an accurate and fast way to switch between the two calendars with ease.">
+    
+        <!-- Keywords -->
+        <meta name="keywords" content="Ethiopian Calendar Converter, Ethiopian Date Converter, Convert Ethiopian Calendar, Gregorian to Ethiopian Converter, Ethiopian Holidays, Ethiopian Calendar Ethiopia, Ethiopian to Gregorian, Date Conversion Ethiopia">
+    
+        <!-- Author -->
+        <meta name="author" content="Abraham Alemayehu">
+    
+        <!-- Open Graph Meta Tags for Social Media Sharing -->
+        <meta property="og:title" content="Ethiopian Calendar Converter | Convert Ethiopian and Gregorian Dates">
+        <meta property="og:description" content="Accurately convert dates between the Ethiopian and Gregorian calendars. Perfect for Ethiopian users and global audiences needing quick date conversions.">
+        <meta property="og:image" content="{{ url_for('static', filename='img/logo.png') }}">
+        <meta property="og:url" content="https://ethiopiantogregorian-calander-convertor-1.onrender.com/">
+        <meta property="og:type" content="website">
+    
+        <!-- Twitter Card Meta Tags -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Ethiopian Calendar Converter">
+        <meta name="twitter:description" content="Convert Ethiopian dates to Gregorian and vice versa with our easy-to-use Ethiopian Calendar Converter.">
+        <meta name="twitter:image" content="{{ url_for('static', filename='img/logo.png') }}">
+    
+        <!-- Favicon -->
+        <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}" type="image/x-icon">
+    
+        <!-- Canonical Link -->
+        <link rel="canonical" href="https://yourwebsite.com/ethiopian-calendar-converter">
+    
+        <!-- CSS Stylesheets -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+        <!-- Robots -->
+        <meta name="robots" content="index, follow">
+    
+        <!-- Google Verification -->
+        <meta name="google-site-verification" content="P5GHuHrAHzLOxtFhJc8QSXEOxMGWc5pxLHZOLx--EIM" />    
+        <!-- Additional SEO Scripts or Tools -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "Ethiopian Calendar Converter",
+            "url": "https://ethiopiantogregorian-calander-convertor-1.onrender.com/",
+            "description": "Convert dates between the Ethiopian and Gregorian calendars easily with our Ethiopian Calendar Converter. Useful for Ethiopians and anyone dealing with Ethiopian dates.",
+            "image": "{{ url_for('static', filename='img/logo.png') }}",
+            "author": {
+                "@type": "Person",
+                "name": "Abraham Alemayehu"
+            },
+            "publisher": {
+                "@type": "website",
+                "name": "Abraham Alemayehu"
+            }
+        }
+        </script>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="header-logo">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h1 class="header-title">Calendar Converter</h1>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn">
+                <i class="fas fa-moon"></i>
+                <span>Theme</span>
+            </button>
+            <button class="header-btn">
+                <i class="fas fa-globe"></i>
+                <span>Language</span>
+            </button>
+            <button class="header-btn">
+                <i class="fas fa-question-circle"></i>
+                <span>Help</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav">
+        <div class="nav-profile">
+            <div class="profile-image">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo">
+            </div>
+            <h2>Calendar Converter</h2>
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('home') }}" class="{% if request.endpoint == 'home' %}active{% endif %}">
+                <i class="fas fa-sync"></i>Convert</a>
+            </li>
+            <li><a href="{{ url_for('calendar') }}" class="{% if request.endpoint == 'calendar' %}active{% endif %}">
+                <i class="fas fa-calendar"></i>Calendar</a>
+            </li>
+            <li><a href="{{ url_for('holiday') }}" class="{% if request.endpoint == 'holiday' %}active{% endif %}">
+                <i class="fas fa-star"></i>Holidays</a>
+            </li>
+            <li><a href="{{ url_for('about') }}" class="{% if request.endpoint == 'about' %}active{% endif %}">
+                <i class="fas fa-info-circle"></i>About</a>
+            </li>
+        </ul>
+        
+    </nav>
+
+    
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="copyright">
+                    © {{ year }} Calendar Converter. Developed by 
+                    <a href="https://github.com/abrahamalexand" target="_blank" rel="noopener noreferrer">
+                        Abraham Alemayehu
+                    </a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    {% block scripts %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        document.querySelector('.header-btn').addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', 
+        document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        );
+    });
+    </script>
+    {% endblock %}
+</body>
+</html>
