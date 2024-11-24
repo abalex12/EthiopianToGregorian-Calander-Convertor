@@ -45,22 +45,23 @@
         <!-- Additional SEO Scripts or Tools -->
         <script type="application/ld+json">
         {
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Ethiopian Calendar Converter",
-            "url": "https://ethiopiantogregorian-calander-convertor-1.onrender.com/",
-            "description": "Convert dates between the Ethiopian and Gregorian calendars easily with our Ethiopian Calendar Converter. Useful for Ethiopians and anyone dealing with Ethiopian dates.",
-            "image": "{{ url_for('static', filename='img/logo.png') }}",
-            "author": {
-                "@type": "Person",
-                "name": "Abraham Alemayehu"
-            },
-            "publisher": {
-                "@type": "website",
-                "name": "Abraham Alemayehu"
-            }
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Ethiopian Calendar Converter",
+          "url": "https://ethiopiantogregorian-calander-convertor-1.onrender.com/",
+          "description": "Convert dates between the Ethiopian and Gregorian calendars easily with our Ethiopian Calendar Converter. Useful for Ethiopians and anyone dealing with Ethiopian dates.",
+          "image": "https://ethiopiantogregorian-calander-convertor-1.onrender.com/static/img/logo.png",
+          "author": {
+            "@type": "Person",
+            "name": "Abraham Alemayehu"
+          },
+          "publisher": {
+            "@type": "Person",
+            "name": "Abraham Alemayehu"
+          }
         }
         </script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
